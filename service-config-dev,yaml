@@ -1,0 +1,24 @@
+config:
+  email:
+    subject: 注册验证码
+    content: 您绑定的邮箱的验证码是 %s。验证码有效期为10分钟，泄露有风险，请勿转发此邮件
+  gateway:
+    maxRequestTimes: 3
+    interval: 60
+    limitTime: 10
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: service-user-router
+          uri: lb://lagou-service-user
+          predicates:
+            - Path=/user/**
+        - id: service-code-router
+          uri: lb://lagou-service-code
+          predicates:
+            - Path=/code/**
+        - id: service-email-router
+          uri: lb://lagou-service-email
+          predicates:
+            - Path=/email/**
