@@ -1,0 +1,4 @@
+mysql:
+	url: localhost:3306/
+lagou:
+	message: hello 100
