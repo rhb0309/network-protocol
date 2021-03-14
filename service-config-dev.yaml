@@ -22,3 +22,42 @@ spring:
           uri: lb://lagou-service-email
           predicates:
             - Path=/email/**
+feign:
+  hystrix:
+    enable: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/html,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enables: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+lagou-service-email:
+  ribbon:
+    ConnectTimeout: 2000
+    ReadTimeout: 10000
+    OkToRetryOnAllOperations: true
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 0
+    
+lagou-service-user:
+  ribbon:
+    ConnectTimeout: 2000
+    ReadTimeout: 10000
+    OkToRetryOnAllOperations: true
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 0
+    
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+    
